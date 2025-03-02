@@ -15,6 +15,34 @@ Stop settling for less. Make game servers a first class citizen on your platform
 
 ![Image](https://cdn.pterodactyl.io/site-assets/pterodactyl_v1_demo.gif)
 
+## Quick Setup with Docker Compose
+
+This repository includes a complete Docker Compose setup for running the Pterodactyl panel locally or in production.
+
+### Requirements
+- Docker
+- Docker Compose
+
+### Installation
+1. Clone this repository
+2. Run the following commands:
+```bash
+# Start all services
+docker-compose up -d
+
+# Setup the panel (first time only)
+docker-compose exec panel php artisan p:environment:setup
+docker-compose exec panel php artisan p:environment:database
+docker-compose exec panel php artisan migrate --seed
+docker-compose exec panel php artisan p:user:make
+```
+
+3. Access the panel at `http://localhost`
+4. For mail testing, access Mailhog at `http://localhost:8025`
+
+### Configuration
+You can modify the `docker-compose.yml` file to change database credentials, email settings, or other configuration options.
+
 ## Documentation
 
 * [Panel Documentation](https://pterodactyl.io/panel/1.0/getting_started.html)
