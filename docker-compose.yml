@@ -11,6 +11,7 @@ x-common:
     # Timezone configuration (http://php.net/manual/en/timezones.php)
     APP_TIMEZONE: "UTC"
     APP_SERVICE_AUTHOR: "noreply@example.com"
+    APP_KEY: "base64:SbXvDQPYwGOJexx1E8jhkkOKbY9XCWMPQg5vMjtBt8s="
     # Uncomment for Let's Encrypt SSL
     # LE_EMAIL: "admin@example.com"
   mail:
@@ -57,6 +58,7 @@ services:
   panel:
     image: ghcr.io/pterodactyl/panel:latest
     restart: always
+    entrypoint: /entrypoint.sh
     ports:
       - "80:80"
       - "443:443"
@@ -69,6 +71,7 @@ services:
       - "./nginx/:/etc/nginx/http.d/"
       - "./certs/:/etc/letsencrypt/"
       - "./logs/:/app/storage/logs"
+      - "./docker-entrypoint.sh:/entrypoint.sh"
     environment:
       <<: [*panel-environment, *mail-environment]
       DB_PASSWORD: *db-password
@@ -80,6 +83,8 @@ services:
       REDIS_HOST: "cache"
       DB_HOST: "database"
       DB_PORT: "3306"
+      DB_DATABASE: "panel"
+      DB_USERNAME: "pterodactyl"
     networks:
       - pterodactyl_network
 

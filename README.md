@@ -25,20 +25,21 @@ This repository includes a complete Docker Compose setup for running the Pteroda
 
 ### Installation
 1. Clone this repository
-2. Run the following commands:
+2. Run the following command:
 ```bash
 # Start all services
 docker-compose up -d
-
-# Setup the panel (first time only)
-docker-compose exec panel php artisan p:environment:setup
-docker-compose exec panel php artisan p:environment:database
-docker-compose exec panel php artisan migrate --seed
-docker-compose exec panel php artisan p:user:make
 ```
 
+The panel will automatically initialize the database, set up the environment, and create a default admin user.
+
 3. Access the panel at `http://localhost`
-4. For mail testing, access Mailhog at `http://localhost:8025`
+4. Login with the default credentials:
+   - Email: admin@example.com
+   - Password: Password123
+5. For mail testing, access Mailhog at `http://localhost:8025`
+
+**IMPORTANT**: Remember to change the default admin password after first login!
 
 ### Configuration
 You can modify the `docker-compose.yml` file to change database credentials, email settings, or other configuration options.
